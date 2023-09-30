@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>josias Todolist</title>
+    <!-- Meta Tags -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Links -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+      integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.css"
+      integrity="sha512-NXUhxhkDgZYOMjaIgd89zF2w51Mub53Ru3zCNp5LTlEzMbNNAjTjDbpURYGS5Mop2cU4b7re1nOIucsVlrx9fA=="
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
+  <body>
+    <!--  Header -->
+    <header class="main-header">
+      <div class="ui container">
+        <h1>josias Todolist</h1>
+      </div>
+    </header>
+    <!-- fin header -->
+
+    <div class="ui container">
+      <!-- ajout des taches -->
+      <form id="add-task" class="ui left icon input fluid">
+        <input
+          id="add-task-input"
+          class="large"
+          type="text"
+          placeholder="Ecrivez vos taches ici..."
+        />
+        <i class="tasks icon"></i>
+      </form>
+      <!--  fin ajout des taches -->
+
+      <!-- Bouttons -->
+      <div id="buttons" class="ui stackable grid equal width">
+        <button
+          id="clear-all-tasks"
+          class="ui button column"
+          onclick="showClearAllTasksModal()"
+        >
+          effacer toute les Taches
+        </button>
+        <button
+          disabled
+          class="ui button column"
+          onclick="showClearCompletedTasksModal()"
+        >
+          Effacer les taches terminer
+        </button>
+      </div>
+      <!-- -->
+
+      <!-- liste des tache -->
+      <ul id="tasks-list" class="ui segments"></ul>
+      <!-- fin list des tache -->
+
+      <!--mis ajour -->
+      <div id="edit-modal" class="ui tiny modal">
+        <div class="header">mise a jour</div>
+        <div class="content">
+          <div class="ui fluid input">
+            <input id="task-id" type="hidden" />
+            <input id="task-text" type="text" />
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui cancel button">retour</div>
+          <div id="update-button" class="ui positive right labeled icon button">
+            mise à jour
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
+      </div>
+      <!-- fin mise ajour -->
+
+      <!-- effacer -->
+      <div id="remove-modal" class="ui tiny modal">
+        <div class="header">suppromer votre tache</div>
+        <div class="content">
+          <div class="ui fluid input">
+            <input id="task-id" type="hidden" />
+            <p>Etre vous sur de voiloir Effacer cette taches?</p>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui cancel red button">Non</div>
+          <div id="remove-button" class="ui positive right labeled icon button">
+            Oui
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
+      </div>
+      <!-- fin effacer une tache -->
+
+      <!-- effacer toutes les taches -->
+      <div id="clear-all-tasks-modal" class="ui tiny modal">
+        <div class="header">Effacer toutes les taches</div>
+        <div class="content">
+          <div class="ui fluid input">
+            <input id="task-id" type="hidden" />
+            <p>Etre vous sure de vouloir supprimer toutes les taches?</p>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui cancel red button">Non</div>
+          <div
+            id="remove-button"
+            onclick="clearAllTasks()"
+            class="ui positive right labeled icon button"
+          >
+            oui
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
+      </div>
+      <!-- fin effacer toutes les taches -->
+
+      <!-- tache completer -->
+      <div id="clear-completed-tasks-modal" class="ui tiny modal">
+        <div class="header">supprimer les taches terminer</div>
+        <div class="content">
+          <div class="ui fluid input">
+            <input id="task-id" type="hidden" />
+            <p>Etre vous sure de vouloir supprimer toutes les taches  terminer?</p>
+          </div>
+        </div>
+        <div class="actions">
+          <div class="ui cancel red button">Non</div>
+          <div
+            id="remove-button"
+            onclick="clearAllTasks()"
+            class="ui positive right labeled icon button"
+          >
+            oui
+            <i class="checkmark icon"></i>
+          </div>
+        </div>
+      </div>
+      <!-- fin tache completer -->
+    </div>
+
+    <!-- Scripts -->
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"
+      integrity="sha512-lOrm9FgT1LKOJRUXF3tp6QaMorJftUjowOWiDcG5GFZ/q7ukof19V0HKx/GWzXCdt9zYju3/KhBNdCLzK8b90Q=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js"
+      integrity="sha512-dqw6X88iGgZlTsONxZK9ePmJEFrmHwpuMrsUChjAw1mRUhUITE5QU9pkcSox+ynfLhL15Sv2al5A0LVyDCmtUw=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/toastify-js"
+    ></script>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
